@@ -10,7 +10,7 @@ class User extends React.Component {
                     className='p-1 inline-block hover:text-gray-400 font-bold'
                     >
                     # 
-                    {user.name}
+                    {this.props.user.name}
                 </a>
             </li>
         )
