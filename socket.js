@@ -21,8 +21,8 @@ class Socket {
     }
     message(e) {
         try {
-            const event = JSON.parse(e.data)
-            this.ee.emit(this.message.name, this.message.data)
+            const message = JSON.parse(e.data)
+            this.ee.emit(message.name, message.data)
         } catch (error) {
             this.ee.emit('error', err)
         }

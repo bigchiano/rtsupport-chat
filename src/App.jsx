@@ -17,7 +17,8 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    const socket = (this.socket = new Socket());
+    const ws = new WebSocket('ws://localhost:2200')
+    const socket = (this.socket = new Socket(ws));
     socket.on("connect", this.onConnect.bind(this));
     socket.on("disconnect", this.onDisconnect.bind(this));
     socket.on("channel add", this.onAddChannel.bind(this));
@@ -40,14 +41,8 @@ class App extends Component {
     this.setState({ channels });
   }
   addChannel(name) {
-    const channels = this.state.channels;
-
-    const msg = {
-      name: "channel add",
-      data: { id: channels.length, name },
-    };
     // Send channels to server
-    this.ws.send(JSON.stringify(msg));
+    this.socket.emit('channel add', {name});
   }
   onMessageAdd(message) {
     const { messages } = this.state;
